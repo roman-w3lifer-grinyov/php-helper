@@ -520,9 +520,9 @@ NOWDOC
         $this->assertTrue(PhpHelper::strRepeatWithSeparator('a', 0) === '');
         $this->assertTrue(PhpHelper::strRepeatWithSeparator('a', 1) === 'a');
         $this->assertTrue(PhpHelper::strRepeatWithSeparator('a', 2) === 'aa');
-        $this->assertTrue(PhpHelper::strRepeatWithSeparator('a', 0, '') === '');
-        $this->assertTrue(PhpHelper::strRepeatWithSeparator('a', 1, '') === 'a');
-        $this->assertTrue(PhpHelper::strRepeatWithSeparator('a', 2, '') === 'aa');
+        $this->assertTrue(PhpHelper::strRepeatWithSeparator('a', 0) === '');
+        $this->assertTrue(PhpHelper::strRepeatWithSeparator('a', 1) === 'a');
+        $this->assertTrue(PhpHelper::strRepeatWithSeparator('a', 2) === 'aa');
         $this->assertTrue(PhpHelper::strRepeatWithSeparator('a', 0, '|') === '');
         $this->assertTrue(PhpHelper::strRepeatWithSeparator('a', 1, '|') === 'a');
         $this->assertTrue(PhpHelper::strRepeatWithSeparator('a', 2, '|') === 'a|a');
