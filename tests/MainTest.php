@@ -242,6 +242,8 @@ PhpHelper::createRss([
 
     public function testCreateSitemap()
     {
+        // With XML declarion and `urlset` tag
+
         $this->assertEquals(
             PhpHelper::XML_DECLARATION . PHP_EOL .
             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url>' .
@@ -259,6 +261,9 @@ PhpHelper::createRss([
                 ],
             ])
         );
+
+        // Without XML declarion and `urlset` tag
+
         $this->assertEquals(
             '<url>' .
                 '<loc>https://grinvik.com</loc>' .
@@ -269,6 +274,61 @@ PhpHelper::createRss([
             PhpHelper::createSitemap([
                 [
                     'loc' => 'https://grinvik.com',
+                    'lastmod' => '1970-01-01',
+                    'changefreq' => 'always',
+                    'priority' => '0.0',
+                ],
+            ], false)
+        );
+
+        // With XML declarion and `urlset` tag + `xmlns:xhtml` namespace
+
+        $this->assertEquals(
+            PhpHelper::XML_DECLARATION . PHP_EOL .
+            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml"><url>' .
+            '<loc>https://grinvik.com/en</loc>' .
+            '<xhtml:link rel="alternate" hreflang="en" href="https://grinvik.com/en"/>' .
+            '<xhtml:link rel="alternate" hreflang="ru" href="https://grinvik.com/ru"/>' .
+            '<xhtml:link rel="alternate" hreflang="x-default" href="https://grinvik.com/en"/>' .
+            '<lastmod>1970-01-01</lastmod>' .
+            '<changefreq>always</changefreq>' .
+            '<priority>0.0</priority>' .
+            '</url></urlset>',
+            PhpHelper::createSitemap([
+                [
+                    'loc' => 'https://grinvik.com/en',
+                    'hreflangs' => [
+                        'en' => 'https://grinvik.com/en',
+                        'ru' => 'https://grinvik.com/ru',
+                        'x-default' => 'https://grinvik.com/en',
+                    ],
+                    'lastmod' => '1970-01-01',
+                    'changefreq' => 'always',
+                    'priority' => '0.0',
+                ],
+            ])
+        );
+
+        // Without XML declarion and `urlset` tag + `xmlns:xhtml` namespace
+
+        $this->assertEquals(
+            '<url>' .
+            '<loc>https://grinvik.com/en</loc>' .
+            '<xhtml:link rel="alternate" hreflang="en" href="https://grinvik.com/en"/>' .
+            '<xhtml:link rel="alternate" hreflang="ru" href="https://grinvik.com/ru"/>' .
+            '<xhtml:link rel="alternate" hreflang="x-default" href="https://grinvik.com/en"/>' .
+            '<lastmod>1970-01-01</lastmod>' .
+            '<changefreq>always</changefreq>' .
+            '<priority>0.0</priority>' .
+            '</url>',
+            PhpHelper::createSitemap([
+                [
+                    'loc' => 'https://grinvik.com/en',
+                    'hreflangs' => [
+                        'en' => 'https://grinvik.com/en',
+                        'ru' => 'https://grinvik.com/ru',
+                        'x-default' => 'https://grinvik.com/en',
+                    ],
                     'lastmod' => '1970-01-01',
                     'changefreq' => 'always',
                     'priority' => '0.0',

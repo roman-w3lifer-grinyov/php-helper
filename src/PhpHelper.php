@@ -31,6 +31,7 @@ class PhpHelper
     public const BASE58 = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
     public const OPEN_SITEMAPINDEX_TAG = '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
     public const OPEN_URLSET_TAG = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+    public const OPEN_URLSET_TAG_WITH_XHTML = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">';
     public const XML_DECLARATION = '<?xml version="1.0" encoding="UTF-8"?>';
 
     public static function addChildrenToSimpleXMLElement(SimpleXMLElement $simpleXMLElement, array $children): void
@@ -202,25 +203,43 @@ PhpHelper::createRss([
     }
 
     /**
-     * https://sitemaps.org/protocol.html
+     * Creates an XML sitemap string according to sitemaps.org protocol
+     *
+     * @see https://sitemaps.org/protocol.html
+     *
+     * @param array<int, array{
+     *     loc: string,          // Required: URL of the page
+     *     lastmod?: string,     // Optional: Last modification date (W3C Datetime format)
+     *     changefreq?: string,  // Optional: Change frequency (always|hourly|daily|weekly|monthly|yearly|never)
+     *     priority?: string,    // Optional: Priority (0.0 to 1.0)
+     *     // Optional `hreflangs`
+     *     // Array of language alternates where key is language code (e.g. 'en', 'ru') and value is the alternative URL
+     *     hreflangs?: array<string, string>
+     * }> $items Array of sitemap items
+     * @param bool $addXmlDecltionAndUrlsetTag Whether to include XML declaration and urlset wrapper
+     * @return string Generated sitemap XML
      */
-    public static function createSitemap(array $items, bool $addUrlsetTag = true): string
+    public static function createSitemap(array $items, bool $addXmlDecltionAndUrlsetTag = true): string
     {
         $sitemap = '';
         foreach ($items as $item) {
+            $sitemap .= '<url><loc>' . $item['loc'] . '</loc>';
+            if (!empty($item['hreflangs'])) {
+                foreach ($item['hreflangs'] as $hreflang => $href) {
+                    $sitemap .= '<xhtml:link rel="alternate" hreflang="' . $hreflang . '" href="' . $href . '"/>';
+                }
+            }
             $sitemap .=
-                '<url>' .
-                    '<loc>' . $item['loc'] . '</loc>' .
-                    (!empty($item['lastmod']) ? '<lastmod>' . $item['lastmod'] . '</lastmod>' : '') .
-                    (!empty($item['changefreq']) ? '<changefreq>' . $item['changefreq'] . '</changefreq>' : '') .
-                    (!empty($item['priority']) ? '<priority>' . $item['priority'] . '</priority>' : '') .
-                '</url>'
-            ;
+                (!empty($item['lastmod']) ? '<lastmod>' . $item['lastmod'] . '</lastmod>' : '') .
+                (!empty($item['changefreq']) ? '<changefreq>' . $item['changefreq'] . '</changefreq>' : '') .
+                (!empty($item['priority']) ? '<priority>' . $item['priority'] . '</priority>' : '') .
+            '</url>';
         }
-        if (!$addUrlsetTag) {
+        if (!$addXmlDecltionAndUrlsetTag) {
             return $sitemap;
         }
-        return self::XML_DECLARATION . PHP_EOL . self::OPEN_URLSET_TAG . $sitemap . '</urlset>';
+        $openUrlsetTag = empty($item['hreflangs']) ? self::OPEN_URLSET_TAG : self::OPEN_URLSET_TAG_WITH_XHTML;
+        return self::XML_DECLARATION . PHP_EOL . $openUrlsetTag . $sitemap . '</urlset>';
     }
 
     /**
