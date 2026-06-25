@@ -245,14 +245,14 @@ PhpHelper::createRss([
         $this->assertEquals(
             PhpHelper::XML_DECLARATION . PHP_EOL .
             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url>' .
-                '<loc>https://shiftcalendar.online</loc>' .
+                '<loc>https://grinvik.com</loc>' .
                 '<lastmod>1970-01-01</lastmod>' .
                 '<changefreq>always</changefreq>' .
                 '<priority>0.0</priority>' .
             '</url></urlset>',
             PhpHelper::createSitemap([
                 [
-                    'loc' => 'https://shiftcalendar.online',
+                    'loc' => 'https://grinvik.com',
                     'lastmod' => '1970-01-01',
                     'changefreq' => 'always',
                     'priority' => '0.0',
@@ -261,14 +261,14 @@ PhpHelper::createRss([
         );
         $this->assertEquals(
             '<url>' .
-                '<loc>https://shiftcalendar.online</loc>' .
+                '<loc>https://grinvik.com</loc>' .
                 '<lastmod>1970-01-01</lastmod>' .
                 '<changefreq>always</changefreq>' .
                 '<priority>0.0</priority>' .
             '</url>',
             PhpHelper::createSitemap([
                 [
-                    'loc' => 'https://shiftcalendar.online',
+                    'loc' => 'https://grinvik.com',
                     'lastmod' => '1970-01-01',
                     'changefreq' => 'always',
                     'priority' => '0.0',
@@ -282,12 +282,12 @@ PhpHelper::createRss([
         $this->assertEquals(
             PhpHelper::XML_DECLARATION . PHP_EOL .
             '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><sitemap>' .
-                '<loc>https://shiftcalendar.online/sitemap.xml</loc>' .
+                '<loc>https://grinvik.com/sitemap.xml</loc>' .
                 '<lastmod>1970-01-01</lastmod>' .
             '</sitemap></sitemapindex>',
             PhpHelper::createSitemapIndex([
                 [
-                    'loc' => 'https://shiftcalendar.online/sitemap.xml',
+                    'loc' => 'https://grinvik.com/sitemap.xml',
                     'lastmod' => '1970-01-01',
                     'changefreq' => 'always',
                     'priority' => '0.0',
@@ -296,12 +296,12 @@ PhpHelper::createRss([
         );
         $this->assertEquals(
             '<sitemap>' .
-                '<loc>https://shiftcalendar.online/sitemap.xml</loc>' .
+                '<loc>https://grinvik.com/sitemap.xml</loc>' .
                 '<lastmod>1970-01-01</lastmod>' .
             '</sitemap>',
             PhpHelper::createSitemapIndex([
                 [
-                    'loc' => 'https://shiftcalendar.online/sitemap.xml',
+                    'loc' => 'https://grinvik.com/sitemap.xml',
                     'lastmod' => '1970-01-01',
                     'changefreq' => 'always',
                     'priority' => '0.0',
