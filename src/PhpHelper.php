@@ -209,12 +209,12 @@ PhpHelper::createRss([
      *
      * @param array<int, array{
      *     loc: string,          // Required: URL of the page
+     *     // Optional `hreflangs`
+     *     // Array of language alternates where key is language code (e.g. 'en', 'ru') and value is the alternative URL
+     *     hreflangs?: array<string, string>,
      *     lastmod?: string,     // Optional: Last modification date (W3C Datetime format)
      *     changefreq?: string,  // Optional: Change frequency (always|hourly|daily|weekly|monthly|yearly|never)
      *     priority?: string,    // Optional: Priority (0.0 to 1.0)
-     *     // Optional `hreflangs`
-     *     // Array of language alternates where key is language code (e.g. 'en', 'ru') and value is the alternative URL
-     *     hreflangs?: array<string, string>
      * }> $items Array of sitemap items
      * @param bool $addXmlDecltionAndUrlsetTag Whether to include XML declaration and urlset wrapper
      * @return string Generated sitemap XML
