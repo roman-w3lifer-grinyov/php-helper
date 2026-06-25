@@ -155,22 +155,22 @@ class PhpHelper
      * Usage
 ```
 PhpHelper::createRss([
-    'title' => 'StackHub',
-    'link' => 'https://stackhub.net',
-    'description' => '▷ Concise yet comprehensive technical manuals and online tools',
-    'atomLink' => 'https://stackhub.net/rss.xml',
+    'title' => 'Grinvik Blog',
+    'link' => 'https://blog.grinvik.com',
+    'description' => '▷ Official Blog of Grinvik.Com',
+    'atomLink' => 'https://blog.grinvik.com/rss.xml',
 ], [
     [
-        'title' => 'Manuals',
-        'link' => 'https://stackhub.net/manuals',
-        'description' => '▷ Concise yet comprehensive technical manuals',
-        'guid' => 'https://stackhub.net/manuals',
+        'title' => 'Post 1',
+        'link' => 'https://blog.grinvik.com/posts/1',
+        'description' => '▷ Description of the Post 1',
+        'guid' => 'https://blog.grinvik.com/posts/1',
     ],
     [
-        'title' => 'Tools',
-        'link' => 'https://stackhub.net/tools',
-        'description' => '▷ Online tools',
-        'guid' => 'https://stackhub.net/tools',
+        'title' => 'Post 2',
+        'link' => 'https://blog.grinvik.com/posts/2',
+        'description' => '▷ Description of the Post 2',
+        'guid' => 'https://blog.grinvik.com/posts/2',
     ],
 ])
 ```
